@@ -1,0 +1,150 @@
+/* styles.css */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #ffdfba, #ffab73);
+    overflow: hidden;
+  }
+  
+  .landing-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100vh;
+    color: #fff;
+    position: relative;
+  }
+  
+  header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  header p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .slider {
+    width: 80%;
+    max-width: 600px;
+    overflow: hidden;
+    margin: 2rem auto;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .slides {
+    display: flex;
+    animation: slide-animation 10s infinite;
+  }
+  
+  .slide {
+    flex: 0 0 100%;
+    padding: 1rem;
+    font-size: 1.5rem;
+  }
+  
+  button#start {
+    background: #ff6f61;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  
+  button#start:hover {
+    transform: scale(1.1);
+  }
+  
+  #background-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+  
+  /* Slider Animation */
+  @keyframes slide-animation {
+    0%, 33% { transform: translateX(0); }
+    34%, 66% { transform: translateX(-100%); }
+    67%, 100% { transform: translateX(-200%); }
+  }
+  
+  /* Media Queries for Responsiveness */
+  
+  /* Large tablets and smaller laptops */
+  @media (max-width: 1024px) {
+    header h1 {
+      font-size: 2rem;
+    }
+  
+    header p {
+      font-size: 1rem;
+    }
+  
+    .slider .slide {
+      font-size: 1.2rem;
+    }
+  
+    button#start {
+      padding: 0.8rem 1.6rem;
+      font-size: 1rem;
+    }
+  }
+  
+  /* Smartphones and smaller devices */
+  @media (max-width: 768px) {
+    .slider {
+      width: 90%;
+    }
+  
+    header h1 {
+      font-size: 1.8rem;
+    }
+  
+    header p {
+      font-size: 0.9rem;
+    }
+  
+    .slider .slide {
+      font-size: 1rem;
+    }
+  
+    button#start {
+      padding: 0.7rem 1.4rem;
+      font-size: 0.9rem;
+    }
+  }
+  
+  /* Small smartphones and extra small devices */
+  @media (max-width: 480px) {
+    header h1 {
+      font-size: 1.5rem;
+    }
+  
+    header p {
+      font-size: 0.8rem;
+    }
+  
+    .slider {
+      width: 100%;
+    }
+  
+    button#start {
+      padding: 0.6rem 1.2rem;
+      font-size: 0.8rem;
+    }
+  }
+  

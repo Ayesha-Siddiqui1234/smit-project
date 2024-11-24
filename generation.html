@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baby Profile</title>
+  <style>
+    /* General Styling */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff5f2; /* Light shade of #ff6f61 */
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .profile-container {
+      max-width: 800px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background-color: #ff6f61; /* Main Color */
+      color: white;
+      border-radius: 10px 10px 0 0;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    h2 {
+      text-align: center;
+      color: #ff6f61; /* Main Color */
+    }
+
+    #baby-profile,
+    #health-insights {
+      margin: 20px 0;
+    }
+
+    .profile-details {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    #baby-avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid #ddd;
+    }
+
+    .profile-info p {
+      margin: 5px 0;
+    }
+
+    #health-status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .health-green {
+      color: green;
+      font-size: 2rem;
+    }
+
+    .health-red {
+      color: red;
+      font-size: 2rem;
+    }
+
+    button {
+      display: inline-block;
+      margin: 20px 10px 0;
+      padding: 10px 20px;
+      background-color: #ff6f61; /* Main Color */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background-color: #ff4c3b; /* Darker shade of #ff6f61 */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="profile-container">
+    <header>
+      <h1>Baby's Future Profile</h1>
+    </header>
+
+    <!-- Baby Profile Section -->
+    <section id="baby-profile">
+      <h2>Baby's Profile</h2>
+      <div class="profile-details">
+        <img id="baby-avatar" src="" alt="Baby Avatar">
+        <div class="profile-info">
+          <p><strong>Name:</strong> <span id="baby-name">Baby Sunshine</span></p>
+          <p><strong>Birth Month:</strong> <span id="birth-month">Unknown</span></p>
+          <p><strong>Personality Traits:</strong> <span id="traits">Unknown</span></p>
+          <p><strong>Family Health History:</strong> <span id="health-history">Unknown</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Health Insights Section -->
+    <section id="health-insights">
+      <h2>Health Insights</h2>
+      <div id="health-status">
+        <span id="health-icon" class="health-green">✔</span>
+        <p id="health-message">Healthy</p>
+      </div>
+    </section>
+
+    <!-- Navigation Buttons -->
+    <div>
+      <button id="go-back">Back to Quiz</button>
+      <button id="next">Next</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Retrieve data from localStorage
+      const birthMonth = localStorage.getItem('birthMonth') || 'Unknown';
+      const babyName = localStorage.getItem('babyName') || 'Baby Sunshine';
+      const traits = localStorage.getItem('traits') || 'Unknown';
+      const healthHistory = localStorage.getItem('healthHistory') || 'Unknown';
+
+      // Update the page content
+      document.getElementById('baby-avatar').src = `https://robohash.org/${birthMonth}?set=set4`;
+      document.getElementById('baby-name').textContent = babyName;
+      document.getElementById('birth-month').textContent = birthMonth;
+      document.getElementById('traits').textContent = traits;
+      document.getElementById('health-history').textContent = healthHistory;
+
+      // Health Insights Logic
+      const healthIcon = document.getElementById('health-icon');
+      const healthMessage = document.getElementById('health-message');
+      if (healthHistory !== 'Unknown') {
+        healthIcon.className = 'health-red';
+        healthIcon.textContent = '⚠';
+        healthMessage.textContent = `Potential health risks: ${healthHistory}`;
+      }
+
+      // Button to go back to Quiz page
+      document.getElementById('go-back').addEventListener('click', () => {
+        window.location.href = 'quiz.html';
+      });
+
+      // Button to navigate to Health Risk page
+      document.getElementById('next').addEventListener('click', () => {
+        window.location.href = 'healthrisk.html';
+      });
+    });
+  </script>
+</body>
+
+</html>

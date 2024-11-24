@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - Baby Future Profile</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            animation: fadeInBody 1.5s ease-in-out;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            animation: fadeInContainer 2s ease-in-out;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+            color: #ff6f61;
+            font-size: 2rem;
+            opacity: 0;
+            animation: fadeInHeader 1s ease-in-out forwards;
+        }
+
+        .summary {
+            margin-top: 30px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .summary p {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .health-status {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .health-status .health-icon {
+            font-size: 2rem;
+        }
+
+        .button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .button:hover {
+            background-color: #ff857a;
+            transform: scale(1.05);
+        }
+
+        .button:active {
+            transform: scale(0.98);
+        }
+
+        .button.pulse {
+            animation: pulse 1s infinite;
+        }
+
+        .share-options {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .share-options button {
+            background-color: #0077b5;
+            transition: all 0.3s ease;
+        }
+
+        .share-options button:hover {
+            background-color: #005a8a;
+            transform: scale(1.05);
+        }
+
+        .cta {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #ff6f61;
+        }
+
+        /* Keyframes for Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInBody {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInContainer {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInHeader {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Thank You for Completing the Survey!</h1>
+        <h2>Your Future Baby's Traits</h2>
+
+        <div class="summary">
+            <p><strong>Expected Birth Month:</strong> <span id="birth-month-summary">Unknown</span></p>
+            <p><strong>Traits:</strong> <span id="traits-summary">Unknown</span></p>
+            <p><strong>Health Insights:</strong> <span id="health-summary">Unknown</span></p>
+        </div>
+
+        <div class="health-status">
+            <span id="health-icon" class="health-icon">✔</span>
+            <p id="health-status-message">Healthy</p>
+        </div>
+
+        <button class="button pulse" id="download-pdf">Download PDF Summary</button>
+
+        
+
+       
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Retrieve data from localStorage or fallback to default
+            const birthMonth = localStorage.getItem('birthMonth') || 'Unknown';
+            const traits = localStorage.getItem('traits') || 'Unknown';
+            const healthHistory = localStorage.getItem('healthHistory') || 'Unknown';
+
+            // Update the page content
+            document.getElementById('birth-month-summary').textContent = birthMonth;
+            document.getElementById('traits-summary').textContent = traits;
+            document.getElementById('health-summary').textContent = healthHistory;
+
+            // Health Status and Icon
+            const healthIcon = document.getElementById('health-icon');
+            const healthStatusMessage = document.getElementById('health-status-message');
+            if (healthHistory !== 'Unknown') {
+                healthIcon.classList.add('health-red');
+                healthStatusMessage.textContent = `Potential health risks: ${healthHistory}`;
+                healthIcon.textContent = '⚠';
+            }
+
+            // PDF Download functionality
+            document.getElementById('download-pdf').addEventListener('click', () => {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                doc.text('Baby Future Profile Summary', 20, 20);
+                doc.text(`Expected Birth Month: ${birthMonth}`, 20, 30);
+                doc.text(`Traits: ${traits}`, 20, 40);
+                doc.text(`Health Insights: ${healthHistory}`, 20, 50);
+
+                doc.save('baby-profile-summary.pdf');
+            });
+
+            // Button to explore activities
+            document.getElementById('explore-activities').addEventListener('click', () => {
+                window.location.href = 'final.html';
+            });
+        });
+    </script>
+
+</body>
+
+</html>

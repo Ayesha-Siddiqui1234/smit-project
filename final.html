@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Activity Recommender</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      text-align: center;
+      background-color: #ff6f61; /* Main Color */
+      color: white;
+      padding: 20px 0;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .activity-container {
+      max-width: 800px;
+      margin: 20px auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    h2 {
+      color: #ff6f61;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .slider-group {
+      margin: 15px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      animation: slideIn 0.5s ease-out;
+    }
+
+    input[type="range"] {
+      width: 60%;
+      transition: all 0.3s ease-in-out;
+    }
+
+    input[type="range"]:hover {
+      transform: scale(1.05);
+    }
+
+    #recommendation-list,
+    #real-world-list {
+      padding: 10px;
+      list-style: none;
+      font-size: 1rem;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    #recommendation-list li {
+      margin: 5px 0;
+      padding: 8px;
+      background-color: #ffe5e0;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    #recommendation-list li:hover {
+      background-color: #ff6f61;
+      color: white;
+      cursor: pointer;
+    }
+
+    #real-world-list {
+      text-align: center;
+    }
+
+    button {
+      background-color: #ff6f61;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e65c53;
+      transform: scale(1.05);
+    }
+
+    /* Animation Keyframes */
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      0% { transform: translateX(-50px); opacity: 0; }
+      100% { transform: translateX(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="activity-container">
+    <header>
+      <h1>Explore Activities for Your Baby</h1>
+    </header>
+
+    <!-- Trait Adjustment Section -->
+    <section id="trait-adjuster">
+      <h2>Adjust Baby's Traits</h2>
+      <div class="slider-group">
+        <label for="creativity-slider">Creativity:</label>
+        <input type="range" id="creativity-slider" min="1" max="10" value="5">
+        <span id="creativity-value">5</span>
+      </div>
+      <div class="slider-group">
+        <label for="energy-slider">Energy:</label>
+        <input type="range" id="energy-slider" min="1" max="10" value="5">
+        <span id="energy-value">5</span>
+      </div>
+      <div class="slider-group">
+        <label for="logic-slider">Logic:</label>
+        <input type="range" id="logic-slider" min="1" max="10" value="5">
+        <span id="logic-value">5</span>
+      </div>
+    </section>
+
+    <!-- Activity Recommendations -->
+    <section id="activity-recommendations">
+      <h2>Suggested Activities</h2>
+      <ul id="recommendation-list">
+        <li>Adjust traits to see recommendations.</li>
+      </ul>
+    </section>
+
+    <!-- Real-World Activities -->
+    <section id="real-world-activities">
+      <h2>Real-World Activities</h2>
+      <div id="real-world-list">
+        <p>Loading suggestions...</p>
+      </div>
+    </section>
+
+    <!-- Button to navigate to thankyou.html -->
+    <button onclick="window.location.href='thankyou.html';">Next</button>
+  </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Sliders and values
+    const creativitySlider = document.getElementById('creativity-slider');
+    const energySlider = document.getElementById('energy-slider');
+    const logicSlider = document.getElementById('logic-slider');
+
+    const creativityValue = document.getElementById('creativity-value');
+    const energyValue = document.getElementById('energy-value');
+    const logicValue = document.getElementById('logic-value');
+
+    const recommendationList = document.getElementById('recommendation-list');
+    const realWorldList = document.getElementById('real-world-list');
+
+    // Activity Suggestions
+    const activitySuggestions = {
+      creativity: [
+        "Enroll in creative art classes",
+        "Introduce DIY craft activities",
+        "Explore storytelling sessions"
+      ],
+      energy: [
+        "Outdoor sports like soccer",
+        "Dance classes for kids",
+        "Nature hikes with family"
+      ],
+      logic: [
+        "Puzzle-solving workshops",
+        "Introduce building blocks",
+        "Coding games for kids"
+      ]
+    };
+
+    // Update Recommendations
+    function updateRecommendations() {
+      const creativity = parseInt(creativitySlider.value);
+      const energy = parseInt(energySlider.value);
+      const logic = parseInt(logicSlider.value);
+
+      creativityValue.textContent = creativity;
+      energyValue.textContent = energy;
+      logicValue.textContent = logic;
+
+      recommendationList.innerHTML = "";
+
+      if (creativity > 7) {
+        activitySuggestions.creativity.forEach(activity => {
+          const li = document.createElement('li');
+          li.textContent = activity;
+          recommendationList.appendChild(li);
+        });
+      }
+      if (energy > 7) {
+        activitySuggestions.energy.forEach(activity => {
+          const li = document.createElement('li');
+          li.textContent = activity;
+          recommendationList.appendChild(li);
+        });
+      }
+      if (logic > 7) {
+        activitySuggestions.logic.forEach(activity => {
+          const li = document.createElement('li');
+          li.textContent = activity;
+          recommendationList.appendChild(li);
+        });
+      }
+
+      if (creativity <= 7 && energy <= 7 && logic <= 7) {
+        const li = document.createElement('li');
+        li.textContent = "Adjust traits to see recommendations.";
+        recommendationList.appendChild(li);
+      }
+    }
+
+    // Attach event listeners to sliders
+    creativitySlider.addEventListener('input', updateRecommendations);
+    energySlider.addEventListener('input', updateRecommendations);
+    logicSlider.addEventListener('input', updateRecommendations);
+
+    // Fetch Real-World Activities
+    async function fetchRealWorldActivities() {
+      try {
+        const response = await fetch('https://www.googleapis.com/books/v1/volumes?q=kids+activities');
+        const data = await response.json();
+
+        realWorldList.innerHTML = "";
+
+        data.items.slice(0, 5).forEach(book => {
+          const div = document.createElement('div');
+          div.textContent = book.volumeInfo.title;
+          realWorldList.appendChild(div);
+        });
+      } catch (error) {
+        realWorldList.innerHTML = "<p>Failed to fetch activities. Try again later.</p>";
+      }
+    }
+
+    // Initial Fetch
+    fetchRealWorldActivities();
+  });
+</script>
+</body>
+</html>

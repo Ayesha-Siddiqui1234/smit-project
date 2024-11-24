@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Risk Analyzer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    h1 {
+      text-align: center;
+      color: #ff6f61;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    label {
+      font-size: 1.1rem;
+      color: #444;
+      font-weight: bold;
+    }
+
+    input,
+    button,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #ff6f61;
+      outline: none;
+    }
+
+    button {
+      background-color: #ff6f61;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e55d51;
+    }
+
+    .alert {
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      display: none;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .alert.green {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .alert.yellow {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+
+    .alert.red {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .resources-link {
+      text-decoration: none;
+      color: #0062cc;
+      font-weight: bold;
+    }
+
+    .resources-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Animation for Fade In */
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    /* Animation for Container Hover */
+    .container:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Health Risk Analyzer</h1>
+
+    <label for="family-history">Enter Family Health History (e.g., diabetes, asthma, heart disease):</label>
+    <textarea id="family-history" rows="4" placeholder="Type health conditions in your family history..."></textarea>
+
+    <button onclick="analyzeHealthRisk()">Analyze Health Risks</button>
+
+    <div id="alert" class="alert"></div>
+
+    <!-- New button to navigate to final.html -->
+    <button onclick="window.location.href='final.html';">Go explore activities</button>
+  </div>
+
+  <script>
+    // Function to analyze the health risk based on family history input
+    function analyzeHealthRisk() {
+      const familyHistory = document.getElementById('family-history').value.toLowerCase();
+      const alertDiv = document.getElementById('alert');
+
+      // Check for known conditions that indicate risk
+      if (familyHistory.includes("diabetes") || familyHistory.includes("heart disease") || familyHistory.includes("asthma")) {
+        alertDiv.classList.remove("green", "yellow");
+        alertDiv.classList.add("red");
+        alertDiv.innerHTML = "High Risk Detected: Potential risk for diabetes, heart disease, or asthma. <br> <a href='https://www.cdc.gov/diabetes/'>Learn more about preventing diabetes in children</a>.";
+        alertDiv.style.display = "block";
+        alertDiv.style.transform = "scale(1)";
+      } else if (familyHistory.includes("high blood pressure") || familyHistory.includes("cancer")) {
+        alertDiv.classList.remove("green", "red");
+        alertDiv.classList.add("yellow");
+        alertDiv.innerHTML = "Low Risk Detected: Possible risk for high blood pressure or cancer. <br> <a href='https://www.cancer.org/'>Learn more about cancer prevention</a>.";
+        alertDiv.style.display = "block";
+        alertDiv.style.transform = "scale(1)";
+      } else {
+        alertDiv.classList.remove("yellow", "red");
+        alertDiv.classList.add("green");
+        alertDiv.innerHTML = "Healthy: No immediate risk detected based on the input provided.";
+        alertDiv.style.display = "block";
+        alertDiv.style.transform = "scale(1)";
+      }
+
+      // Animation effect for alert div
+      setTimeout(() => {
+        alertDiv.style.transform = "scale(1.1)";
+        setTimeout(() => {
+          alertDiv.style.transform = "scale(1)";
+        }, 200);
+      }, 300);
+    }
+  </script>
+
+</body>
+
+</html>

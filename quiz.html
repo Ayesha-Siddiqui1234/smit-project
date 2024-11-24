@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Generation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      text-align: center;
+      color: #ff6f61; /* Updated color */
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-size: 1.1rem;
+      color: #ff6f61; /* Updated color */
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #ff6f61; /* Updated color */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #e55c52; /* Slightly darker shade on hover */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Future Mind Mapping Simulator</h1>
+    </header>
+
+    <form id="quiz-form">
+      <!-- Quiz Options Form -->
+      <label for="birth-month">Baby's Expected Birth Month:</label>
+      <select id="birth-month" required>
+        <option value="" disabled selected>Select a month</option>
+        <option value="January">January</option>
+        <option value="February">February</option>
+        <option value="March">March</option>
+        <option value="April">April</option>
+        <option value="May">May</option>
+        <option value="June">June</option>
+        <option value="July">July</option>
+        <option value="August">August</option>
+        <option value="September">September</option>
+        <option value="October">October</option>
+        <option value="November">November</option>
+        <option value="December">December</option>
+      </select>
+
+      <label for="traits">Parents' Traits:</label>
+      <input type="text" id="traits" placeholder="e.g., Introverted, Playful" required>
+
+      <label for="health-history">Family Health History:</label>
+      <textarea id="health-history" placeholder="e.g., Heart Disease, Diabetes" required></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('quiz-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      // Get form data
+      const birthMonth = document.getElementById('birth-month').value;
+      const traits = document.getElementById('traits').value;
+      const healthHistory = document.getElementById('health-history').value;
+
+      // Save data to localStorage
+      localStorage.setItem('birthMonth', birthMonth);
+      localStorage.setItem('traits', traits);
+      localStorage.setItem('healthHistory', healthHistory);
+
+      // Redirect to generation.html
+      window.location.href = 'generation.html';
+    });
+  </script>
+</body>
+
+</html>
